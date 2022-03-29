@@ -1,7 +1,9 @@
 Describe: wordCounter()
 
 Test: "It should not count numbers as words."
-Code: wordCounter("hi there 77 19");
+Code: function wordCounter(word) {
+  return 1;
+}
 Expected Output: 2
 
 Test: "It should return 0 for a string that is only spaces."
@@ -49,3 +51,59 @@ const text = "red blue red red red green";
 const word = "red";
 numberOfOccurrencesInText(word, text);
 Expected Output: 4
+
+Test: "It should return a word match regardless of case."
+Code:
+const text = "red RED Red green Green GREEN";
+const word = "Red";
+numberOfOccurrencesInText(word, text);
+Expected Output: 3
+
+Test: "It should return a word match regardless of punctuation."
+Code:
+const text = "Red! Red. I like red, green, and yellow.";
+const word = "Red";
+numberOfOccurrencesInText(word, text);
+Expected Output: 3
+
+Test: "If an empty string is passed in as a word, it should return 0."
+Code:
+const word = "";
+const text = "red RED Red!";
+wordCounter(word, text);
+Expected Output: 0
+Describe: boldPassage()
+
+Test: "It should return a non-matching word in a p tag."
+Code:
+const word = "hello";
+const text = "yo";
+boldPassage(word, text);
+Expected Output: "<p>yo</p>"
+
+Test: "It should return a matching word in a b tag."
+Code:
+const word = "hello";
+const text = "hello";
+boldPassage(word, text);
+Expected Output: "<p><b>hello</b></p>"
+
+Test: "It should wrap words that match in `b` tags but not words that don't."
+Code:
+function boldPassage(word, text) {
+  let htmlString = "<p>";
+  let textArray = text.split(" ");
+  textArray.forEach(function(element) {
+    if (word === element) {
+      htmlString = htmlString.concat("<b>" + element + "</b>");
+    } else {
+      htmlString = htmlString.concat(element);
+    }
+    htmlString = htmlString.concat(" ");
+  });
+  return htmlString + "</p>";
+}
+const word = "hello";
+const text = "hello there";
+boldPassage(word, text);
+Expected Output: "<p><b>hello</b> there</p>"
